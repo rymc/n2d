@@ -170,7 +170,7 @@ def eval_other_methods(x, y):
     print("======================")
 
 
-def cluster_manifold_in_embedding(hl, y, n_clusters, save_dir):
+def cluster_manifold_in_embedding(hl, y, n_clusters, save_dir, visualize):
     # find manifold on autoencoded embedding
     if args.manifold_learner == 'UMAP':
         md = float(args.umap_min_dist)
@@ -234,9 +234,10 @@ def cluster_manifold_in_embedding(hl, y, n_clusters, save_dir):
     print(ari)
     print("======================")
 
-    plt.scatter(*zip(*hle[:1000, :2]), c=y[:1000], label=y[:1000])
-    plt.savefig(save_dir + '/' + args.dataset + '-n2d.png')
-    plt.clf()
+    if visualize:
+        plt.scatter(*zip(*hle[:1000, :2]), c=y[:1000], label=y[:1000])
+        plt.savefig(save_dir + '/' + args.dataset + '-n2d.png')
+        plt.clf()
 
     return y_pred_prob, acc, nmi, ari
 
@@ -283,8 +284,9 @@ if __name__ == "__main__":
     parser.add_argument('--umap_min_dist', default="0.00", type=str)
     parser.add_argument('--umap_metric', default='euclidean', type=str)
     parser.add_argument('--cluster', default='GMM', type=str)
-    parser.add_argument('--plot_all', default='false', type=str)
+    parser.add_argument('--eval_all', default=False, action='store_true')
     parser.add_argument('--manifold_learner', default='UMAP', type=str)
+    parser.add_argument('--visualize', default=False, action='store_true')
     args = parser.parse_args()
     print(args)
 
@@ -338,7 +340,7 @@ if __name__ == "__main__":
         f.write("\n".join(sys.argv))
 
     hl = encoder.predict(x)
-    if args.plot_all == 'true':
+    if args.eval_all == True:
         eval_other_methods(x, y)
     p, t_acc, t_nmi, t_ari = cluster_manifold_in_embedding(
-        hl, y, args.n_clusters, args.save_dir, )
+        hl, y, args.n_clusters, args.save_dir, args.visualize)
