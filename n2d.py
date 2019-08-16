@@ -61,9 +61,6 @@ def eval_other_methods(x, y):
     print(nmi)
     print(ari)
     print("======================")
-    plt.scatter(*zip(*x[:1000, 2]), c=y_pred[:1000], label=y[:1000])
-    plt.savefig(args.save_dir + '/' + args.dataset + 'GMM-raw.png')
-    plt.clf()
 
     y_pred = KMeans(
         n_clusters=args.n_clusters,
