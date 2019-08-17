@@ -239,7 +239,7 @@ def cluster_manifold_in_embedding(hl, y, n_clusters, save_dir, visualize):
         plt.savefig(save_dir + '/' + args.dataset + '-n2d.png')
         plt.clf()
 
-    return y_pred_prob, acc, nmi, ari
+    return y_pred, acc, nmi, ari
 
 
 def cluster_acc(y_true, y_pred):
@@ -342,5 +342,7 @@ if __name__ == "__main__":
     hl = encoder.predict(x)
     if args.eval_all == True:
         eval_other_methods(x, y)
-    p, t_acc, t_nmi, t_ari = cluster_manifold_in_embedding(
+    clusters, t_acc, t_nmi, t_ari = cluster_manifold_in_embedding(
         hl, y, args.n_clusters, args.save_dir, args.visualize)
+    np.savetxt(args.save_dir+"/"+args.dataset+'-clusters.txt', clusters, fmt='%i', delimiter=',')
+    
