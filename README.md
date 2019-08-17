@@ -24,3 +24,6 @@ pip install -f requirements.txt
 ```sh
 bash run.sh
 ```
+
+## Visualization
+If you would like to produce some plots for visualization purposes add the agument '--visualize'. I also reccomend setting the argument '--umap_dim' to be 2.
