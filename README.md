@@ -11,6 +11,7 @@ We quantitatively show across a range of image and time-series datasets that our
 We postulate that these results show a promising research direction for deep clustering.
 
 ## Paper
+
 https://arxiv.org/abs/1908.05968
 
 ## Install
@@ -28,7 +29,7 @@ bash run.sh
 ## Visualization
 If you would like to produce some plots for visualization purposes add the agument '--visualize'. I also reccomend setting the argument '--umap_dim' to be 2.
 
-# Citation
+## Citation
 ```
 @article{2019arXiv190805968M,
   title = {N2D:(Not Too) Deep clustering via clustering the local manifold of an autoencoded embedding},
