@@ -27,3 +27,15 @@ bash run.sh
 
 ## Visualization
 If you would like to produce some plots for visualization purposes add the agument '--visualize'. I also reccomend setting the argument '--umap_dim' to be 2.
+
+# Citation
+```
+@article{2019arXiv190805968M,
+  title = "{N2D:(Not Too) Deep clustering via clustering the local manifold of an autoencoded embedding}",
+  author = {{McConville}, Ryan and {Santos-Rodriguez}, Raul and {Piechocki}, Robert J and {Craddock}, Ian},
+  journal = {arXiv preprint arXiv:1908.05968},
+  year = "2019",
+  month = "Aug",
+
+}
+```
