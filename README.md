@@ -11,7 +11,7 @@ We quantitatively show across a range of image and time-series datasets that our
 We postulate that these results show a promising research direction for deep clustering.
 
 ## Paper
-https://seis.bristol.ac.uk/~rm17770/publications/n2d.pdf
+https://arxiv.org/abs/1908.05968
 
 ## Install
 
