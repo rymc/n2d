@@ -10,6 +10,9 @@ We study a number of local and global manifold learning methods on both the raw 
 We quantitatively show across a range of image and time-series datasets that our method has competitive performance against the latest deep clustering algorithms, including out-performing current state-of-the-art on several.
 We postulate that these results show a promising research direction for deep clustering.
 
+## Results
+![N2D results](https://seis.bristol.ac.uk/~rm17770/publications/n2d-results.png)
+
 ## Paper
 
 https://arxiv.org/abs/1908.05968
