@@ -35,7 +35,7 @@ If you would like to produce some plots for visualization purposes add the agume
 ## Citation
 ```
 @article{2019arXiv190805968M,
-  title = {N2D:(Not Too) Deep clustering via clustering the local manifold of an autoencoded embedding},
+  title = {N2D:(Not Too) Deep Clustering via Clustering the Local Manifold of an Autoencoded Embedding},
   author = {{McConville}, Ryan and {Santos-Rodriguez}, Raul and {Piechocki}, Robert J and {Craddock}, Ian},
   journal = {arXiv preprint arXiv:1908.05968},
   year = "2019",
