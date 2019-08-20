@@ -1,4 +1,4 @@
-## N2D: (Not Too) Deep clustering via clustering the local manifold of an autoencoded embedding.
+## N2D: (Not Too) Deep Clustering via Clustering the Local Manifold of an Autoencoded Embedding.
 
 ## Abstract
 Deep clustering has increasingly been demonstrating superiority over conventional shallow clustering algorithms. 
