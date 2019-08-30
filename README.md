@@ -39,10 +39,10 @@ git clone https://github.com/rymc/n2d.git
 ```sh
 pip install -r requirements.txt
 ```
-### If using a GPU
-```sh
-conda install tensorflow-gpu=1.13.1 cudatoolkit=9.0
-```
+
+
+
+
 
 ### Reproduce Results
 ```sh
