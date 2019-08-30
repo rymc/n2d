@@ -20,6 +20,8 @@ https://arxiv.org/abs/1908.05968
 ## Install
 
 ```sh
+conda create -n n2d python=3.7  
+source activate n2d
 conda install tensorflow-gpu=1.13.1 cudatoolkit=9.0
 pip install -r requirements.txt
 ```
