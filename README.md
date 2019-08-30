@@ -19,9 +19,24 @@ https://arxiv.org/abs/1908.05968
 
 ## Install
 
+# Install Anaconda
+```sh
+wget https://repo.anaconda.com/archive/Anaconda3-2019.07-Linux-x86_64.sh
+bash Anaconda3-2019.07-Linux-x86_64.sh
+source anaconda3/bin/activate
+```
+
+# Create environment
 ```sh
 conda create -n n2d python=3.7  
-source activate n2d
+conda activate n2d
+```
+# Clone repo
+```sh
+git clone https://github.com/rymc/n2d.git
+```
+# Install packages
+```sh
 conda install tensorflow-gpu=1.13.1 cudatoolkit=9.0
 pip install -r requirements.txt
 ```
