@@ -21,7 +21,7 @@ https://arxiv.org/abs/1908.05968
 
 ```sh
 conda install tensorflow-gpu=1.13.1 cudatoolkit=9.0
-pip install -f requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Reproduce Results
