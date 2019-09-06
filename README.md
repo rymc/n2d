@@ -40,14 +40,17 @@ git clone https://github.com/rymc/n2d.git
 pip install -r requirements.txt
 ```
 
-
-
-
-
-### Reproduce Results
+### Reproduce results
 ```sh
 bash run.sh
 ```
+
+### For training a new network
+I reccomend using a GPU. I used the following packages to train the weights in the repo.
+```sh
+conda install tensorflow-gpu=1.13.1 cudatoolkit=9.0
+```
+
 
 ### Visualization
 If you would like to produce some plots for visualization purposes add the agument '--visualize'. I also reccomend setting the argument '--umap_dim' to be 2.
