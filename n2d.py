@@ -25,6 +25,14 @@ os.environ["CUDA_VISIBLE_DEVICES"] = str(sys.argv[2])
 os.environ['PYTHONHASHSEED'] = '0'
 os.environ['TF_CUDNN_USE_AUTOTUNE'] = '0'
 
+if len(K.tensorflow_backend._get_available_gpus()) > 0:
+    print("Using GPU")
+    session_conf = tf.ConfigProto(intra_op_parallelism_threads=1,
+                                  inter_op_parallelism_threads=1,
+                                )
+    sess = tf.Session(graph=tf.get_default_graph(), config=session_conf)
+    K.set_session(sess)
+
 try:
     from MulticoreTSNE import MulticoreTSNE as TSNE
 except BaseException:
@@ -293,9 +301,9 @@ if __name__ == "__main__":
     elif args.dataset == 'mnist-test':
         x, y = load_mnist_test()
     elif args.dataset == 'usps':
-        x, y = load_usps('data/usps')
+        x, y = load_usps()
     elif args.dataset == 'pendigits':
-        x, y = load_pendigits('data/pendigits')
+        x, y = load_pendigits()
     elif args.dataset == 'fashion':
         x, y = load_fashion()
     elif args.dataset == 'har':
