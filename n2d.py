@@ -25,6 +25,10 @@ os.environ["CUDA_VISIBLE_DEVICES"] = str(sys.argv[2])
 os.environ['PYTHONHASHSEED'] = '0'
 os.environ['TF_CUDNN_USE_AUTOTUNE'] = '0'
 
+rn.seed(0)
+tf.set_random_seed(0)
+np.random.seed(0)
+
 if len(K.tensorflow_backend._get_available_gpus()) > 0:
     print("Using GPU")
     session_conf = tf.ConfigProto(intra_op_parallelism_threads=1,
@@ -41,11 +45,6 @@ except BaseException:
 np.set_printoptions(threshold=sys.maxsize)
 
 matplotlib.use('agg')
-
-rn.seed(0)
-tf.set_random_seed(0)
-np.random.seed(0)
-
 
 def eval_other_methods(x, y):
     gmm = mixture.GaussianMixture(
