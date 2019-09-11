@@ -46,18 +46,7 @@ def load_har():
     return x, y
 
 
-def load_usps(data_path='./data/usps'):
-    if not os.path.exists(data_path + '/usps_train.jf'):
-        if not os.path.exists(data_path + '/usps_train.jf.gz'):
-            os.system(
-                'wget http://www-i6.informatik.rwth-aachen.de/~keysers/usps_train.jf.gz -P %s' %
-                data_path)
-            os.system(
-                'wget http://www-i6.informatik.rwth-aachen.de/~keysers/usps_test.jf.gz -P %s' %
-                data_path)
-        os.system('gunzip %s/usps_train.jf.gz' % data_path)
-        os.system('gunzip %s/usps_test.jf.gz' % data_path)
-
+def load_usps(data_path='data/usps'):
     with open(data_path + '/usps_train.jf') as f:
         data = f.readlines()
     data = data[1:-1]
@@ -78,16 +67,18 @@ def load_usps(data_path='./data/usps'):
     return x, y
 
 
-def load_pendigits(data_path='./data/pendigits'):
+def load_pendigits(data_path='data/pendigits'):
     if not os.path.exists(data_path + '/pendigits.tra'):
+        os.makedirs(data_path,  exist_ok=True)
+        
         os.system(
-            'wget http://mlearn.ics.uci.edu/databases/pendigits/pendigits.tra -P %s' %
+            'wget https://archive.ics.uci.edu/ml/machine-learning-databases/pendigits/pendigits.tra -P %s' %
             data_path)
         os.system(
-            'wget http://mlearn.ics.uci.edu/databases/pendigits/pendigits.tes -P %s' %
+            'wget https://archive.ics.uci.edu/ml/machine-learning-databases/pendigits/pendigits.tes -P %s' %
             data_path)
         os.system(
-            'wget http://mlearn.ics.uci.edu/databases/pendigits/pendigits.names -P %s' %
+                'wget https://archive.ics.uci.edu/ml/machine-learning-databases/pendigits/pendigits.names -P %s' %
             data_path)
 
     # load training data
