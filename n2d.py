@@ -24,9 +24,7 @@ os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = str(sys.argv[2])
 os.environ['PYTHONHASHSEED'] = '0'
 os.environ['TF_CUDNN_USE_AUTOTUNE'] = '0'
-session_conf = tf.ConfigProto(intra_op_parallelism_threads=1,
-                              inter_op_parallelism_threads=1,
-                              )
+
 try:
     from MulticoreTSNE import MulticoreTSNE as TSNE
 except BaseException:
@@ -39,9 +37,6 @@ matplotlib.use('agg')
 rn.seed(0)
 tf.set_random_seed(0)
 np.random.seed(0)
-
-sess = tf.Session(graph=tf.get_default_graph(), config=session_conf)
-K.set_session(sess)
 
 
 def eval_other_methods(x, y):
