@@ -46,11 +46,14 @@ bash run.sh
 ```
 
 ### For training a new network
-I reccomend using a GPU. I used the following packages to train the weights in the repo.
+If you remove the --ae_weights argument when running n2d then it will train a new network, rather than load the pretrained weights.
+
+For adding a new dataset you should add a load function to datasets.py (you can use the existing ones to understand how) and a function to call your data loading function from n2d.py
+
+I used the following packages for training the networks using the GPU.
 ```sh
 conda install tensorflow-gpu=1.13.1 cudatoolkit=9.0
 ```
-
 
 ### Visualization
 If you would like to produce some plots for visualization purposes add the agument '--visualize'. I also reccomend setting the argument '--umap_dim' to be 2.
