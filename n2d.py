@@ -308,7 +308,7 @@ if __name__ == "__main__":
     parser.add_argument('--umap_min_dist', default="0.00", type=str)
     parser.add_argument('--umap_metric', default='euclidean', type=str)
     parser.add_argument('--cluster', default='GMM', type=str)
-    parser.add_argument('--eval_all', default=True, action='store_true')
+    parser.add_argument('--eval_all', default=False, action='store_true')
     parser.add_argument('--manifold_learner', default='UMAP', type=str)
     parser.add_argument('--visualize', default=False, action='store_true')
     args = parser.parse_args()
