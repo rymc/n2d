@@ -52,50 +52,50 @@ matplotlib.use('agg')
 
 
 def eval_other_methods(x, y, names=None):
-    # gmm = mixture.GaussianMixture(
-    #     covariance_type='full',
-    #     n_components=args.n_clusters,
-    #     random_state=0)
-    # gmm.fit(x)
-    # y_pred_prob = gmm.predict_proba(x)
-    # y_pred = y_pred_prob.argmax(1)
-    # acc = np.round(cluster_acc(y, y_pred), 5)
-    # nmi = np.round(metrics.normalized_mutual_info_score(y, y_pred), 5)
-    # ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
-    # print(args.dataset + " | GMM clustering on raw data")
-    # print("======================")
-    # print(acc)
-    # print(nmi)
-    # print(ari)
-    # print("======================")
-    #
-    # y_pred = KMeans(
-    #     n_clusters=args.n_clusters,
-    #     random_state=0).fit_predict(x)
-    # acc = np.round(cluster_acc(y, y_pred), 5)
-    # nmi = np.round(metrics.normalized_mutual_info_score(y, y_pred), 5)
-    # ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
-    # print(args.dataset + " | K-Means clustering on raw data")
-    # print("======================")
-    # print(acc)
-    # print(nmi)
-    # print(ari)
-    # print("======================")
-    #
-    # sc = SpectralClustering(
-    #     n_clusters=args.n_clusters,
-    #     random_state=0,
-    #     affinity='nearest_neighbors')
-    # y_pred = sc.fit_predict(x)
-    # acc = np.round(cluster_acc(y, y_pred), 5)
-    # nmi = np.round(metrics.normalized_mutual_info_score(y, y_pred), 5)
-    # ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
-    # print(args.dataset + " | Spectral Clustering on raw data")
-    # print("======================")
-    # print(acc)
-    # print(nmi)
-    # print(ari)
-    # print("======================")
+    gmm = mixture.GaussianMixture(
+        covariance_type='full',
+        n_components=args.n_clusters,
+        random_state=0)
+    gmm.fit(x)
+    y_pred_prob = gmm.predict_proba(x)
+    y_pred = y_pred_prob.argmax(1)
+    acc = np.round(cluster_acc(y, y_pred), 5)
+    nmi = np.round(metrics.normalized_mutual_info_score(y, y_pred), 5)
+    ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
+    print(args.dataset + " | GMM clustering on raw data")
+    print("======================")
+    print(acc)
+    print(nmi)
+    print(ari)
+    print("======================")
+
+    y_pred = KMeans(
+        n_clusters=args.n_clusters,
+        random_state=0).fit_predict(x)
+    acc = np.round(cluster_acc(y, y_pred), 5)
+    nmi = np.round(metrics.normalized_mutual_info_score(y, y_pred), 5)
+    ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
+    print(args.dataset + " | K-Means clustering on raw data")
+    print("======================")
+    print(acc)
+    print(nmi)
+    print(ari)
+    print("======================")
+
+    sc = SpectralClustering(
+        n_clusters=args.n_clusters,
+        random_state=0,
+        affinity='nearest_neighbors')
+    y_pred = sc.fit_predict(x)
+    acc = np.round(cluster_acc(y, y_pred), 5)
+    nmi = np.round(metrics.normalized_mutual_info_score(y, y_pred), 5)
+    ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
+    print(args.dataset + " | Spectral Clustering on raw data")
+    print("======================")
+    print(acc)
+    print(nmi)
+    print(ari)
+    print("======================")
 
     if args.manifold_learner == 'UMAP':
         md = float(args.umap_min_dist)
@@ -143,7 +143,6 @@ def eval_other_methods(x, y, names=None):
 
     if args.visualize:
         plot(hle, y, 'UMAP', names)
-        return
 
     y_pred = KMeans(
         n_clusters=args.n_clusters,
