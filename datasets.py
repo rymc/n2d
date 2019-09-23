@@ -1,8 +1,9 @@
 import os
-import pandas as pd
+
 import numpy as np
-from keras.datasets import mnist
+import pandas as pd
 from keras.datasets import fashion_mnist
+from keras.datasets import mnist
 
 
 def load_mnist():
@@ -29,7 +30,9 @@ def load_fashion():
     y = np.concatenate((y_train, y_test))
     x = x.reshape((x.shape[0], -1))
     x = np.divide(x, 255.)
-    return x, y
+    y_names = {0: "T-shirt", 1: "Trouser", 2: "Pullover", 3: "Dress", 4: "Coat",
+               5: "Sandal", 6: "Shirt", 7: "Sneaker", 8: "Bag", 9: "Ankle Boot"}
+    return x, y, y_names
 
 
 def load_har():
@@ -43,7 +46,8 @@ def load_har():
     x = np.concatenate((x_train, x_test))
     y = np.concatenate((y_train, y_test))
     y = y.reshape((y.size,))
-    return x, y
+    y_names = {1: 'Walking', 2: 'Upstairs', 3: 'Downstairs', 4: 'Sitting', 5: 'Standing', 6: 'Laying', }
+    return x, y, y_names
 
 
 def load_usps(data_path='data/usps'):

@@ -1,10 +1,14 @@
 import argparse
-import operator
 import os
 import random as rn
 
 import matplotlib
 import matplotlib.pyplot as plt
+import seaborn as sns
+
+plt.style.use(['seaborn-white', 'seaborn-paper'])
+sns.set_context("paper", font_scale=0.9)
+import pandas as pd
 import numpy as np
 import sys
 import tensorflow as tf
@@ -33,7 +37,7 @@ if len(K.tensorflow_backend._get_available_gpus()) > 0:
     print("Using GPU")
     session_conf = tf.ConfigProto(intra_op_parallelism_threads=1,
                                   inter_op_parallelism_threads=1,
-                                )
+                                  )
     sess = tf.Session(graph=tf.get_default_graph(), config=session_conf)
     K.set_session(sess)
 
@@ -46,51 +50,52 @@ np.set_printoptions(threshold=sys.maxsize)
 
 matplotlib.use('agg')
 
-def eval_other_methods(x, y):
-    gmm = mixture.GaussianMixture(
-        covariance_type='full',
-        n_components=args.n_clusters,
-        random_state=0)
-    gmm.fit(x)
-    y_pred_prob = gmm.predict_proba(x)
-    y_pred = y_pred_prob.argmax(1)
-    acc = np.round(cluster_acc(y, y_pred), 5)
-    nmi = np.round(metrics.normalized_mutual_info_score(y, y_pred), 5)
-    ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
-    print(args.dataset + " | GMM clustering on raw data")
-    print("======================")
-    print(acc)
-    print(nmi)
-    print(ari)
-    print("======================")
 
-    y_pred = KMeans(
-        n_clusters=args.n_clusters,
-        random_state=0).fit_predict(x)
-    acc = np.round(cluster_acc(y, y_pred), 5)
-    nmi = np.round(metrics.normalized_mutual_info_score(y, y_pred), 5)
-    ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
-    print(args.dataset + " | K-Means clustering on raw data")
-    print("======================")
-    print(acc)
-    print(nmi)
-    print(ari)
-    print("======================")
-
-    sc = SpectralClustering(
-        n_clusters=args.n_clusters,
-        random_state=0,
-        affinity='nearest_neighbors')
-    y_pred = sc.fit_predict(x)
-    acc = np.round(cluster_acc(y, y_pred), 5)
-    nmi = np.round(metrics.normalized_mutual_info_score(y, y_pred), 5)
-    ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
-    print(args.dataset + " | Spectral Clustering on raw data")
-    print("======================")
-    print(acc)
-    print(nmi)
-    print(ari)
-    print("======================")
+def eval_other_methods(x, y, names=None):
+    # gmm = mixture.GaussianMixture(
+    #     covariance_type='full',
+    #     n_components=args.n_clusters,
+    #     random_state=0)
+    # gmm.fit(x)
+    # y_pred_prob = gmm.predict_proba(x)
+    # y_pred = y_pred_prob.argmax(1)
+    # acc = np.round(cluster_acc(y, y_pred), 5)
+    # nmi = np.round(metrics.normalized_mutual_info_score(y, y_pred), 5)
+    # ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
+    # print(args.dataset + " | GMM clustering on raw data")
+    # print("======================")
+    # print(acc)
+    # print(nmi)
+    # print(ari)
+    # print("======================")
+    #
+    # y_pred = KMeans(
+    #     n_clusters=args.n_clusters,
+    #     random_state=0).fit_predict(x)
+    # acc = np.round(cluster_acc(y, y_pred), 5)
+    # nmi = np.round(metrics.normalized_mutual_info_score(y, y_pred), 5)
+    # ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
+    # print(args.dataset + " | K-Means clustering on raw data")
+    # print("======================")
+    # print(acc)
+    # print(nmi)
+    # print(ari)
+    # print("======================")
+    #
+    # sc = SpectralClustering(
+    #     n_clusters=args.n_clusters,
+    #     random_state=0,
+    #     affinity='nearest_neighbors')
+    # y_pred = sc.fit_predict(x)
+    # acc = np.round(cluster_acc(y, y_pred), 5)
+    # nmi = np.round(metrics.normalized_mutual_info_score(y, y_pred), 5)
+    # ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
+    # print(args.dataset + " | Spectral Clustering on raw data")
+    # print("======================")
+    # print(acc)
+    # print(nmi)
+    # print(ari)
+    # print("======================")
 
     if args.manifold_learner == 'UMAP':
         md = float(args.umap_min_dist)
@@ -136,10 +141,9 @@ def eval_other_methods(x, y):
     print(ari)
     print("======================")
 
-    plt.scatter(*zip(*hle[:1000, :2]), c=y[:1000], label=y[:1000])
-    plt.savefig(args.save_dir + '/' + args.dataset +
-                '-' + str(args.manifold_learner) + '.png')
-    plt.clf()
+    if args.visualize:
+        plot(hle, y, 'UMAP', names)
+        return
 
     y_pred = KMeans(
         n_clusters=args.n_clusters,
@@ -172,7 +176,7 @@ def eval_other_methods(x, y):
     print("======================")
 
 
-def cluster_manifold_in_embedding(hl, y, n_clusters, save_dir, visualize):
+def cluster_manifold_in_embedding(hl, y, label_names=None):
     # find manifold on autoencoded embedding
     if args.manifold_learner == 'UMAP':
         md = float(args.umap_min_dist)
@@ -202,7 +206,7 @@ def cluster_manifold_in_embedding(hl, y, n_clusters, save_dir, visualize):
     if args.cluster == 'GMM':
         gmm = mixture.GaussianMixture(
             covariance_type='full',
-            n_components=n_clusters,
+            n_components=args.n_clusters,
             random_state=0)
         gmm.fit(hle)
         y_pred_prob = gmm.predict_proba(hle)
@@ -210,13 +214,13 @@ def cluster_manifold_in_embedding(hl, y, n_clusters, save_dir, visualize):
     elif args.cluster == 'KM':
         km = KMeans(
             init='k-means++',
-            n_clusters=n_clusters,
+            n_clusters=args.n_clusters,
             random_state=0,
             n_init=20)
         y_pred = km.fit_predict(hle)
     elif args.cluster == 'SC':
         sc = SpectralClustering(
-            n_clusters=n_clusters,
+            n_clusters=args.n_clusters,
             random_state=0,
             affinity='nearest_neighbors')
         y_pred = sc.fit_predict(hle)
@@ -236,10 +240,8 @@ def cluster_manifold_in_embedding(hl, y, n_clusters, save_dir, visualize):
     print(ari)
     print("======================")
 
-    if visualize:
-        plt.scatter(*zip(*hle[:1000, :2]), c=y[:1000], label=y[:1000])
-        plt.savefig(save_dir + '/' + args.dataset + '-n2d.png')
-        plt.clf()
+    if args.visualize:
+        plot(hle, y, 'n2d', label_names)
 
     return y_pred, acc, nmi, ari
 
@@ -253,6 +255,26 @@ def cluster_acc(y_true, y_pred):
         w[y_pred[i], y_true[i]] += 1
     ind = linear_assignment(w.max() - w)
     return sum([w[i, j] for i, j in ind]) * 1.0 / y_pred.size
+
+
+def plot(x, y, plot_id, names=None):
+    viz_df = pd.DataFrame(data=x[:5000])
+    viz_df['Label'] = y[:5000]
+    if names is not None:
+        viz_df['Label'] = viz_df['Label'].map(names)
+    viz_df.to_csv(args.save_dir + '/' + args.dataset + '.csv')
+    sns.scatterplot(x=0, y=1, hue='Label', legend='full', palette=sns.color_palette("hls", args.n_clusters),
+                    data=viz_df)
+    l = plt.legend(bbox_to_anchor=(0, 1.00, 1, 1), loc="lower left",
+                   mode="expand", borderaxespad=0, ncol=args.n_clusters + 1, handletextpad=0)
+
+    l.texts[0].set_text("")
+    plt.ylabel("")
+    plt.xlabel("")
+    plt.tight_layout()
+    plt.savefig(args.save_dir + '/' + args.dataset +
+                '-' + plot_id + '.png', dpi=300)
+    plt.clf()
 
 
 def autoencoder(dims, act='relu'):
@@ -286,7 +308,7 @@ if __name__ == "__main__":
     parser.add_argument('--umap_min_dist', default="0.00", type=str)
     parser.add_argument('--umap_metric', default='euclidean', type=str)
     parser.add_argument('--cluster', default='GMM', type=str)
-    parser.add_argument('--eval_all', default=False, action='store_true')
+    parser.add_argument('--eval_all', default=True, action='store_true')
     parser.add_argument('--manifold_learner', default='UMAP', type=str)
     parser.add_argument('--visualize', default=False, action='store_true')
     args = parser.parse_args()
@@ -295,6 +317,7 @@ if __name__ == "__main__":
     optimizer = 'adam'
     from datasets import load_mnist, load_mnist_test, load_usps, load_pendigits, load_fashion, load_har
 
+    label_names = None
     if args.dataset == 'mnist':
         x, y = load_mnist()
     elif args.dataset == 'mnist-test':
@@ -304,9 +327,9 @@ if __name__ == "__main__":
     elif args.dataset == 'pendigits':
         x, y = load_pendigits()
     elif args.dataset == 'fashion':
-        x, y = load_fashion()
+        x, y, label_names = load_fashion()
     elif args.dataset == 'har':
-        x, y = load_har()
+        x, y, label_names = load_har()
 
     shape = [x.shape[-1], 500, 500, 2000, args.n_clusters]
     autoencoder = autoencoder(shape)
@@ -342,9 +365,11 @@ if __name__ == "__main__":
         f.write("\n".join(sys.argv))
 
     hl = encoder.predict(x)
-    if args.eval_all == True:
-        eval_other_methods(x, y)
+    if args.eval_all:
+        if args.visualize:
+            plot(hl, y, 'AE', label_names)
+
+        eval_other_methods(x, y, label_names)
     clusters, t_acc, t_nmi, t_ari = cluster_manifold_in_embedding(
-        hl, y, args.n_clusters, args.save_dir, args.visualize)
-    np.savetxt(args.save_dir+"/"+args.dataset+'-clusters.txt', clusters, fmt='%i', delimiter=',')
-    
+        hl, y, label_names)
+    np.savetxt(args.save_dir + "/" + args.dataset + '-clusters.txt', clusters, fmt='%i', delimiter=',')
