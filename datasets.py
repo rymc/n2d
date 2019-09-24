@@ -45,8 +45,10 @@ def load_har():
     y_test = pd.read_csv('data/har/test/y_test.txt', header=None)
     x = np.concatenate((x_train, x_test))
     y = np.concatenate((y_train, y_test))
+    # labels start at 1 so..
+    y = y - 1
     y = y.reshape((y.size,))
-    y_names = {1: 'Walking', 2: 'Upstairs', 3: 'Downstairs', 4: 'Sitting', 5: 'Standing', 6: 'Laying', }
+    y_names = {0: 'Walking', 1: 'Upstairs', 2: 'Downstairs', 3: 'Sitting', 4: 'Standing', 5: 'Laying', }
     return x, y, y_names
 
 
@@ -91,7 +93,6 @@ def load_pendigits(data_path='data/pendigits'):
     data = [list(map(float, line.split(','))) for line in data]
     data = np.array(data).astype(np.float32)
     data_train, labels_train = data[:, :-1], data[:, -1]
-    print('data_train shape=', data_train.shape)
 
     # load testing data
     with open(data_path + '/pendigits.tes') as file:
@@ -99,10 +100,9 @@ def load_pendigits(data_path='data/pendigits'):
     data = [list(map(float, line.split(','))) for line in data]
     data = np.array(data).astype(np.float32)
     data_test, labels_test = data[:, :-1], data[:, -1]
-    print('data_test shape=', data_test.shape)
 
     x = np.concatenate((data_train, data_test)).astype('float32')
     y = np.concatenate((labels_train, labels_test))
     x /= 100.
-    print('pendigits samples:', x.shape)
+    y = y.astype('int')
     return x, y
