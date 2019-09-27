@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 plt.style.use(['seaborn-white', 'seaborn-paper'])
-sns.set_context("paper", font_scale=0.9)
+sns.set_context("paper", font_scale=1.3)
 import pandas as pd
 import numpy as np
 import sys
@@ -63,11 +63,11 @@ def eval_other_methods(x, y, names=None):
     nmi = np.round(metrics.normalized_mutual_info_score(y, y_pred), 5)
     ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
     print(args.dataset + " | GMM clustering on raw data")
-    print("======================")
+    print('=' * 80)
     print(acc)
     print(nmi)
     print(ari)
-    print("======================")
+    print('=' * 80)
 
     y_pred = KMeans(
         n_clusters=args.n_clusters,
@@ -76,11 +76,11 @@ def eval_other_methods(x, y, names=None):
     nmi = np.round(metrics.normalized_mutual_info_score(y, y_pred), 5)
     ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
     print(args.dataset + " | K-Means clustering on raw data")
-    print("======================")
+    print('=' * 80)
     print(acc)
     print(nmi)
     print(ari)
-    print("======================")
+    print('=' * 80)
 
     sc = SpectralClustering(
         n_clusters=args.n_clusters,
@@ -91,11 +91,11 @@ def eval_other_methods(x, y, names=None):
     nmi = np.round(metrics.normalized_mutual_info_score(y, y_pred), 5)
     ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
     print(args.dataset + " | Spectral Clustering on raw data")
-    print("======================")
+    print('=' * 80)
     print(acc)
     print(nmi)
     print(ari)
-    print("======================")
+    print('=' * 80)
 
     if args.manifold_learner == 'UMAP':
         md = float(args.umap_min_dist)
@@ -135,14 +135,18 @@ def eval_other_methods(x, y, names=None):
     ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
     print(args.dataset + " | GMM clustering on " +
           str(args.manifold_learner) + " embedding")
-    print("======================")
+    print('=' * 80)
     print(acc)
     print(nmi)
     print(ari)
-    print("======================")
+    print('=' * 80)
 
     if args.visualize:
         plot(hle, y, 'UMAP', names)
+        y_pred_viz, _, _ = best_cluster_fit(y, y_pred)
+        plot(hle, y_pred_viz, 'UMAP-predicted', names)
+
+        return
 
     y_pred = KMeans(
         n_clusters=args.n_clusters,
@@ -152,11 +156,11 @@ def eval_other_methods(x, y, names=None):
     ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
     print(args.dataset + " | K-Means " +
           str(args.manifold_learner) + " embedding")
-    print("======================")
+    print('=' * 80)
     print(acc)
     print(nmi)
     print(ari)
-    print("======================")
+    print('=' * 80)
 
     sc = SpectralClustering(
         n_clusters=args.n_clusters,
@@ -168,11 +172,11 @@ def eval_other_methods(x, y, names=None):
     ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
     print(args.dataset + " | Spectral Clustering on " +
           str(args.manifold_learner) + " embedding")
-    print("======================")
+    print('=' * 80)
     print(acc)
     print(nmi)
     print(ari)
-    print("======================")
+    print('=' * 80)
 
 
 def cluster_manifold_in_embedding(hl, y, label_names=None):
@@ -225,34 +229,46 @@ def cluster_manifold_in_embedding(hl, y, label_names=None):
         y_pred = sc.fit_predict(hle)
 
     y_pred = np.asarray(y_pred)
-    y_pred = y_pred.reshape(len(y_pred), )
+    # y_pred = y_pred.reshape(len(y_pred), )
     y = np.asarray(y)
-    y = y.reshape(len(y), )
+    # y = y.reshape(len(y), )
     acc = np.round(cluster_acc(y, y_pred), 5)
     nmi = np.round(metrics.normalized_mutual_info_score(y, y_pred), 5)
     ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
     print(args.dataset + " | " + args.manifold_learner +
           " on autoencoded embedding with " + args.cluster + " - N2D")
-    print("======================")
+    print('=' * 80)
     print(acc)
     print(nmi)
     print(ari)
-    print("======================")
+    print('=' * 80)
 
     if args.visualize:
         plot(hle, y, 'n2d', label_names)
+        y_pred_viz, _, _ = best_cluster_fit(y, y_pred)
+        plot(hle, y_pred_viz, 'n2d-predicted', label_names)
 
     return y_pred, acc, nmi, ari
 
 
-def cluster_acc(y_true, y_pred):
+def best_cluster_fit(y_true, y_pred):
     y_true = y_true.astype(np.int64)
-    assert y_pred.size == y_true.size
     D = max(y_pred.max(), y_true.max()) + 1
     w = np.zeros((D, D), dtype=np.int64)
     for i in range(y_pred.size):
         w[y_pred[i], y_true[i]] += 1
+
     ind = linear_assignment(w.max() - w)
+    best_fit = []
+    for i in range(y_pred.size):
+        for j in range(len(ind)):
+            if ind[j][0] == y_pred[i]:
+                best_fit.append(ind[j][1])
+    return best_fit, ind, w
+
+
+def cluster_acc(y_true, y_pred):
+    _, ind, w = best_cluster_fit(y_true, y_pred)
     return sum([w[i, j] for i, j in ind]) * 1.0 / y_pred.size
 
 
@@ -262,11 +278,15 @@ def plot(x, y, plot_id, names=None):
     if names is not None:
         viz_df['Label'] = viz_df['Label'].map(names)
     viz_df.to_csv(args.save_dir + '/' + args.dataset + '.csv')
-    sns.scatterplot(x=0, y=1, hue='Label', legend='full', palette=sns.color_palette("hls", args.n_clusters),
+    plt.subplots(figsize=(8, 5))
+    sns.scatterplot(x=0, y=1, hue='Label', legend='full', palette=sns.color_palette("hls", n_colors=args.n_clusters),
+                    alpha=.5,
                     data=viz_df)
-    l = plt.legend(bbox_to_anchor=(0, 1.00, 1, 1), loc="lower left",
-                   mode="expand", borderaxespad=0, ncol=args.n_clusters + 1, handletextpad=0)
+    # Look into ordering and why its not consistent - should use debug mode..
+    l = plt.legend(bbox_to_anchor=(-.1, 1.00, 1.1, .5), loc="lower left", markerfirst=True,
+                   mode="expand", borderaxespad=0, ncol=args.n_clusters + 1, handletextpad=0.01, )
 
+    # l = plt.legend(bbox_to_anchor=(1, 1), loc=2, borderaxespad=0.)
     l.texts[0].set_text("")
     plt.ylabel("")
     plt.xlabel("")
@@ -365,9 +385,6 @@ if __name__ == "__main__":
 
     hl = encoder.predict(x)
     if args.eval_all:
-        if args.visualize:
-            plot(hl, y, 'AE', label_names)
-
         eval_other_methods(x, y, label_names)
     clusters, t_acc, t_nmi, t_ari = cluster_manifold_in_embedding(
         hl, y, label_names)
