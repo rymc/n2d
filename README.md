@@ -19,7 +19,7 @@ We postulate that these results show a promising research direction for deep clu
 
 ### HAR (Human Activity Recognition)
 <img src="https://seis.bristol.ac.uk/~rm17770/publications/har-n2d.png" width="600px">
-Note: clusters 'look' better in higher dimensions (based on clustering metrics) than they do here in 2d. The intended use of n2d is for clustering. Visualized here are 5000 points.
+Note: clusters 'look' better in higher dimensions (based on clustering metrics) than they do here in 2d. The intended use of n2d is for clustering. Visualized here are the first 5000 points.
 
 
 ## Paper
