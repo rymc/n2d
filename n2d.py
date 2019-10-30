@@ -277,16 +277,16 @@ def plot(x, y, plot_id, names=None):
     viz_df['Label'] = y[:5000]
     if names is not None:
         viz_df['Label'] = viz_df['Label'].map(names)
+
     viz_df.to_csv(args.save_dir + '/' + args.dataset + '.csv')
     plt.subplots(figsize=(8, 5))
-    sns.scatterplot(x=0, y=1, hue='Label', legend='full', palette=sns.color_palette("hls", n_colors=args.n_clusters),
+    sns.scatterplot(x=0, y=1, hue='Label', legend='full', hue_order=sorted(viz_df['Label'].unique()),
+                    palette=sns.color_palette("hls", n_colors=args.n_clusters),
                     alpha=.5,
                     data=viz_df)
-    # Look into ordering and why its not consistent - should use debug mode..
     l = plt.legend(bbox_to_anchor=(-.1, 1.00, 1.1, .5), loc="lower left", markerfirst=True,
                    mode="expand", borderaxespad=0, ncol=args.n_clusters + 1, handletextpad=0.01, )
 
-    # l = plt.legend(bbox_to_anchor=(1, 1), loc=2, borderaxespad=0.)
     l.texts[0].set_text("")
     plt.ylabel("")
     plt.xlabel("")
