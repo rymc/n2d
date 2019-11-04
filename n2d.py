@@ -361,11 +361,10 @@ if __name__ == "__main__":
     # Pretrain autoencoders before clustering
     if args.ae_weights is None:
         autoencoder.compile(loss='mse', optimizer=optimizer)
-        batch_size = 256
         autoencoder.fit(
             x,
             x,
-            batch_size=batch_size,
+            batch_size=args.batch_size,
             epochs=args.pretrain_epochs,
             verbose=0)
         pretrain_time = time() - pretrain_time
