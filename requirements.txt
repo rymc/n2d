@@ -1,7 +1,7 @@
 numpy==1.16.4
 umap_learn==0.3.9
 Keras==2.2.4
-tensorflow==1.13.1
+tensorflow==1.15.2
 pandas==0.24.2
 matplotlib==3.1.0
 scikit_learn==0.21.3
