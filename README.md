@@ -69,7 +69,7 @@ If you would like to produce some plots for visualization purposes add the agume
 
 ## Citation
 ```
-@article{2019arXiv190805968M,
+@article{McConville2020,
   author = {Ryan McConville and Raul Santos-Rodriguez and Robert J Piechocki and Ian Craddock},
   title = {N2D:(Not Too) Deep Clustering via Clustering the Local Manifold of an Autoencoded Embedding},
   booktitle = {25th International Conference on Pattern Recognition, {ICPR} 2020},
