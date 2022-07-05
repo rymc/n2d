@@ -21,7 +21,8 @@ from sklearn import mixture
 from sklearn.cluster import KMeans, SpectralClustering
 from sklearn.manifold import Isomap
 from sklearn.manifold import LocallyLinearEmbedding
-from sklearn.utils.linear_assignment_ import linear_assignment
+#from sklearn.utils.linear_assignment_ import linear_assignment
+from scipy.optimize import linear_sum_assignment as linear_assignment
 from time import time
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
@@ -30,15 +31,17 @@ os.environ['PYTHONHASHSEED'] = '0'
 os.environ['TF_CUDNN_USE_AUTOTUNE'] = '0'
 
 rn.seed(0)
-tf.set_random_seed(0)
+#tf.set_random_seed(0)
+tf.random.set_seed(0)
+
 np.random.seed(0)
 
-if len(K.tensorflow_backend._get_available_gpus()) > 0:
+if len(K._get_available_gpus()) > 0:
     print("Using GPU")
-    session_conf = tf.ConfigProto(intra_op_parallelism_threads=1,
+    session_conf = K.tf.compat.v1.ConfigProto(intra_op_parallelism_threads=1,
                                   inter_op_parallelism_threads=1,
                                   )
-    sess = tf.Session(graph=tf.get_default_graph(), config=session_conf)
+    sess = K.tf.compat.v1.Session(graph=K.tf.compat.v1.get_default_graph(), config=session_conf)
     K.set_session(sess)
 
 try:
@@ -269,12 +272,17 @@ def best_cluster_fit(y_true, y_pred):
 
 def cluster_acc(y_true, y_pred):
     _, ind, w = best_cluster_fit(y_true, y_pred)
-    return sum([w[i, j] for i, j in ind]) * 1.0 / y_pred.size
+    total = 0
+    for i in range(len(ind)):
+        for j in range(len(ind[0])):
+            total += w[i, j]
+    return total * 1.0 / y_pred.size
 
 
 def plot(x, y, plot_id, names=None):
-    viz_df = pd.DataFrame(data=x[:5000])
-    viz_df['Label'] = y[:5000]
+    y_size = len(y)
+    viz_df = pd.DataFrame(data=x[:y_size])
+    viz_df['Label'] = y[:y_size]
     if names is not None:
         viz_df['Label'] = viz_df['Label'].map(names)
 
