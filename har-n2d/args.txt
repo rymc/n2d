@@ -1,0 +1,11 @@
+n2d.py
+har
+1
+--umap_dim=6
+--umap_neighbors=20
+--manifold_learner=UMAP
+--save_dir=har-n2d
+--umap_min_dist=0.00
+--n_clusters=6
+--ae_weights=har-1000-ae_weights.h5
+--visualize

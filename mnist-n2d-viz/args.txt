@@ -1,10 +1,10 @@
 /Users/wai-takwong/git/n2d/n2d.py
-usps
-1
---ae_weights=usps-1000-ae_weights.h5
+mnist
+0
+--ae_weights=mnist-1000-ae_weights.h5
 --umap_dim=2
 --umap_neighbors=20
 --manifold_learner=UMAP
---save_dir=usps-n2d-viz
+--save_dir=mnist-n2d-viz
 --umap_min_dist=0.00
 --visualize

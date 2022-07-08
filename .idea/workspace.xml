@@ -2,13 +2,57 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5e953f94-d9eb-449e-9fb0-9eec22fb3350" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/n2d.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usps-n2d-viz/args.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usps-n2d-viz/usps-n2d.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usps-n2d-viz/usps.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fashion-n2d-viz/args.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fashion-n2d-viz/fashion-clusters.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fashion-n2d-viz/fashion-n2d-predicted.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fashion-n2d-viz/fashion-n2d.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fashion-n2d-viz/fashion.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/har-n2d-viz/args.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/har-n2d-viz/har-clusters.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/har-n2d-viz/har-n2d-predicted.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/har-n2d-viz/har-n2d.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/har-n2d-viz/har.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/har-n2d/args.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/har-n2d/har-clusters.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/har-n2d/har-n2d-predicted.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/har-n2d/har-n2d.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/har-n2d/har.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mnist-n2d-viz/args.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mnist-n2d-viz/mnist-clusters.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mnist-n2d-viz/mnist-n2d-predicted.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mnist-n2d-viz/mnist-n2d.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mnist-n2d-viz/mnist.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mnist-n2d/args.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mnist-n2d/mnist-clusters.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mnist-test-n2d-viz/args.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mnist-test-n2d-viz/mnist-test-clusters.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mnist-test-n2d-viz/mnist-test-n2d-predicted.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mnist-test-n2d-viz/mnist-test-n2d.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mnist-test-n2d-viz/mnist-test.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mnist-test-n2d/args.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mnist-test-n2d/mnist-test-clusters.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pendigits-n2d/args.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pendigits-n2d/pendigits-clusters.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/usps-n2d-viz/usps-UMAP.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/usps-n2d-viz/usps-clusters.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/usps-n2d-viz/usps-n2d-predicted.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/usps-n2d/args.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/usps-n2d/usps-clusters.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/~$ummary.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/n2d.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/n2d.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/n2d.py" beforeDir="false" afterPath="$PROJECT_DIR$/n2d.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/summary.docx" beforeDir="false" afterPath="$PROJECT_DIR$/summary.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usps-n2d-viz/args.txt" beforeDir="false" afterPath="$PROJECT_DIR$/usps-n2d-viz/args.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usps-n2d-viz/usps-n2d.png" beforeDir="false" afterPath="$PROJECT_DIR$/usps-n2d-viz/usps-n2d.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usps-n2d-viz/usps.csv" beforeDir="false" afterPath="$PROJECT_DIR$/usps-n2d-viz/usps.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weights/har-1000-ae_weights.h5" beforeDir="false" afterPath="$PROJECT_DIR$/weights/har-1000-ae_weights.h5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weights/mnist-test-1000-ae_weights.h5" beforeDir="false" afterPath="$PROJECT_DIR$/weights/mnist-test-1000-ae_weights.h5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weights/pendigits-1000-ae_weights.h5" beforeDir="false" afterPath="$PROJECT_DIR$/weights/pendigits-1000-ae_weights.h5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weights/usps-1000-ae_weights.h5" beforeDir="false" afterPath="$PROJECT_DIR$/weights/usps-1000-ae_weights.h5" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +75,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -50,7 +95,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/n2d.py" />
-      <option name="PARAMETERS" value="usps 0 --ae_weights=usps-1000-ae_weights.h5  --umap_dim=2 --umap_neighbors=20 --manifold_learner=UMAP  --save_dir=usps-n2d-viz --umap_min_dist=0.00 --visualize" />
+      <option name="PARAMETERS" value="usps 1 --ae_weights=usps-1000-ae_weights.h5  --umap_dim=2 --umap_neighbors=20 --manifold_learner=UMAP  --save_dir=usps-n2d-viz --umap_min_dist=0.00 --visualize" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -70,9 +115,6 @@
     </task>
     <servers />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
@@ -81,15 +123,40 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/n2d.py</url>
-          <line>251</line>
-          <option name="timeStamp" value="4" />
+          <line>102</line>
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/n2d.py</url>
-          <line>290</line>
-          <option name="timeStamp" value="5" />
+          <line>128</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/n2d.py</url>
+          <line>153</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/n2d.py</url>
+          <line>167</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/n2d.py</url>
+          <line>251</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/n2d.py</url>
+          <line>249</line>
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="args" language="Python" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
