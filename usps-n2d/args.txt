@@ -1,0 +1,8 @@
+n2d.py
+usps
+1
+--umap_dim=10
+--umap_neighbors=20
+--manifold_learner=UMAP
+--save_dir=usps-n2d
+--umap_min_dist=0.00

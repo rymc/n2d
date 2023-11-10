@@ -21,7 +21,8 @@ from sklearn import mixture
 from sklearn.cluster import KMeans, SpectralClustering
 from sklearn.manifold import Isomap
 from sklearn.manifold import LocallyLinearEmbedding
-from sklearn.utils.linear_assignment_ import linear_assignment
+#from sklearn.utils.linear_assignment_ import linear_assignment
+from scipy.optimize import linear_sum_assignment as linear_assignment
 from time import time
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
@@ -30,21 +31,23 @@ os.environ['PYTHONHASHSEED'] = '0'
 os.environ['TF_CUDNN_USE_AUTOTUNE'] = '0'
 
 rn.seed(0)
-tf.set_random_seed(0)
+#tf.set_random_seed(0)
+tf.random.set_seed(0)
+
 np.random.seed(0)
 
-if len(K.tensorflow_backend._get_available_gpus()) > 0:
+if len(K._get_available_gpus()) > 0:
     print("Using GPU")
-    session_conf = tf.ConfigProto(intra_op_parallelism_threads=1,
+    session_conf = K.tf.compat.v1.ConfigProto(intra_op_parallelism_threads=1,
                                   inter_op_parallelism_threads=1,
                                   )
-    sess = tf.Session(graph=tf.get_default_graph(), config=session_conf)
+    sess = K.tf.compat.v1.Session(graph=K.tf.compat.v1.get_default_graph(), config=session_conf)
     K.set_session(sess)
 
-try:
-    from MulticoreTSNE import MulticoreTSNE as TSNE
-except BaseException:
-    print("Missing MulticoreTSNE package.. Only important if evaluating other manifold learners.")
+#try:
+#    from MulticoreTSNE import MulticoreTSNE as TSNE
+#except BaseException:
+#    print("Missing MulticoreTSNE package.. Only important if evaluating other manifold learners.")
 
 np.set_printoptions(threshold=sys.maxsize)
 
@@ -110,13 +113,13 @@ def eval_other_methods(x, y, names=None):
         hle = LocallyLinearEmbedding(
             n_components=args.umap_dim,
             n_neighbors=args.umap_neighbors).fit_transform(x)
-    elif args.manifold_learner == 'tSNE':
-        method = 'exact'
-        hle = TSNE(
-            n_components=args.umap_dim,
-            n_jobs=16,
-            random_state=0,
-            verbose=0).fit_transform(x)
+#    elif args.manifold_learner == 'tSNE':
+#        method = 'exact'
+#        hle = TSNE(
+#            n_components=args.umap_dim,
+#            n_jobs=16,
+#            random_state=0,
+#            verbose=0).fit_transform(x)
     elif args.manifold_learner == 'isomap':
         hle = Isomap(
             n_components=args.umap_dim,
@@ -246,7 +249,7 @@ def cluster_manifold_in_embedding(hl, y, label_names=None):
     if args.visualize:
         plot(hle, y, 'n2d', label_names)
         y_pred_viz, _, _ = best_cluster_fit(y, y_pred)
-        plot(hle, y_pred_viz, 'n2d-predicted', label_names)
+        plot(hle, y_pred, 'n2d-predicted', label_names)
 
     return y_pred, acc, nmi, ari
 
@@ -269,12 +272,17 @@ def best_cluster_fit(y_true, y_pred):
 
 def cluster_acc(y_true, y_pred):
     _, ind, w = best_cluster_fit(y_true, y_pred)
-    return sum([w[i, j] for i, j in ind]) * 1.0 / y_pred.size
+    total = 0
+    for i in ind[0]:
+        total += w[i, ind[1][i]]
+
+    return total * 1.0 / y_pred.size
 
 
 def plot(x, y, plot_id, names=None):
-    viz_df = pd.DataFrame(data=x[:5000])
-    viz_df['Label'] = y[:5000]
+    y_size = len(y)
+    viz_df = pd.DataFrame(data=x[:y_size])
+    viz_df['Label'] = y[:y_size]
     if names is not None:
         viz_df['Label'] = viz_df['Label'].map(names)
 

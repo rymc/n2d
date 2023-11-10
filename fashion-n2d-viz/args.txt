@@ -1,0 +1,10 @@
+n2d.py
+fashion
+1
+--ae_weights=fashion-1000-ae_weights.h5
+--umap_dim=2
+--umap_neighbors=20
+--manifold_learner=UMAP
+--save_dir=fashion-n2d-viz
+--umap_min_dist=0.00
+--visualize
